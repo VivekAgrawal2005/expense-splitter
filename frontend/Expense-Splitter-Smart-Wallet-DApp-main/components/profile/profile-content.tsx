@@ -1,53 +1,72 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { useWallet } from "@/components/wagmi-provider"
-import { useTheme } from "next-themes"
-import { User, Copy, ExternalLink, Moon, Sun, Bell, Shield, LogOut } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useWallet } from "@/hooks/use-wallets";
+import { useTheme } from "next-themes";
+import {
+  User,
+  Copy,
+  ExternalLink,
+  Moon,
+  Sun,
+  Bell,
+  Shield,
+  LogOut,
+} from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 export function ProfileContent() {
-  const { toast } = useToast()
-  const { isConnected, address, disconnect } = useWallet()
-  const { theme, setTheme } = useTheme()
+  const { toast } = useToast();
+  const { isConnected, address, disconnect } = useWallet();
+  const { theme, setTheme } = useTheme();
 
   const copyAddress = () => {
     if (address) {
-      navigator.clipboard.writeText(address)
-      toast({ title: "Copied!", description: "Address copied to clipboard" })
+      navigator.clipboard.writeText(address);
+      toast({ title: "Copied!", description: "Address copied to clipboard" });
     }
-  }
+  };
 
   if (!isConnected) {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Profile</h1>
-          <p className="mt-1 text-muted-foreground">Manage your account settings</p>
+          <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
+            Profile
+          </h1>
+          <p className="mt-1 text-muted-foreground">
+            Manage your account settings
+          </p>
         </div>
 
         <Card className="border-border">
           <CardContent className="flex flex-col items-center justify-center py-12 text-center">
             <User className="mb-4 h-12 w-12 text-muted-foreground" />
-            <h3 className="text-lg font-semibold text-foreground">Connect to View Profile</h3>
+            <h3 className="text-lg font-semibold text-foreground">
+              Connect to View Profile
+            </h3>
             <p className="mt-2 max-w-sm text-sm text-muted-foreground">
               Connect your wallet to view and manage your profile settings.
             </p>
           </CardContent>
         </Card>
       </div>
-    )
+    );
   }
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground sm:text-3xl">Profile</h1>
-        <p className="mt-1 text-muted-foreground">Manage your account settings</p>
+        <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
+          Profile
+        </h1>
+        <p className="mt-1 text-muted-foreground">
+          Manage your account settings
+        </p>
       </div>
 
       {/* Account Info */}
@@ -63,14 +82,30 @@ export function ProfileContent() {
               </AvatarFallback>
             </Avatar>
             <div className="flex-1">
-              <p className="font-mono text-lg font-medium text-foreground">{address}</p>
+              <p className="font-mono text-lg font-medium text-foreground">
+                {address}
+              </p>
               <div className="mt-2 flex gap-2">
-                <Button variant="outline" size="sm" className="gap-2 bg-transparent" onClick={copyAddress}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2 bg-transparent"
+                  onClick={copyAddress}
+                >
                   <Copy className="h-4 w-4" />
                   Copy
                 </Button>
-                <Button variant="outline" size="sm" className="gap-2 bg-transparent" asChild>
-                  <a href={`https://polygonscan.com/address/${address}`} target="_blank" rel="noopener noreferrer">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2 bg-transparent"
+                  asChild
+                >
+                  <a
+                    href={`https://polygonscan.com/address/${address}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <ExternalLink className="h-4 w-4" />
                     View on Explorer
                   </a>
@@ -96,10 +131,17 @@ export function ProfileContent() {
               )}
               <div>
                 <Label className="font-medium">Dark Mode</Label>
-                <p className="text-sm text-muted-foreground">Toggle dark theme</p>
+                <p className="text-sm text-muted-foreground">
+                  Toggle dark theme
+                </p>
               </div>
             </div>
-            <Switch checked={theme === "dark"} onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")} />
+            <Switch
+              checked={theme === "dark"}
+              onCheckedChange={(checked) =>
+                setTheme(checked ? "dark" : "light")
+              }
+            />
           </div>
 
           <div className="flex items-center justify-between rounded-lg border border-border p-4">
@@ -107,7 +149,9 @@ export function ProfileContent() {
               <Bell className="h-5 w-5 text-muted-foreground" />
               <div>
                 <Label className="font-medium">Notifications</Label>
-                <p className="text-sm text-muted-foreground">Receive expense alerts</p>
+                <p className="text-sm text-muted-foreground">
+                  Receive expense alerts
+                </p>
               </div>
             </div>
             <Switch defaultChecked />
@@ -140,12 +184,16 @@ export function ProfileContent() {
       {/* Disconnect */}
       <Card className="border-border border-destructive/50">
         <CardContent className="pt-6">
-          <Button variant="destructive" className="w-full gap-2" onClick={disconnect}>
+          <Button
+            variant="destructive"
+            className="w-full gap-2"
+            onClick={disconnect}
+          >
             <LogOut className="h-4 w-4" />
             Disconnect Wallet
           </Button>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
