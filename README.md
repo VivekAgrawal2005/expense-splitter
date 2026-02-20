@@ -1,5 +1,7 @@
 # 🚀 SplitChain — Decentralized Expense Splitter & Smart Wallet
 
+# Presentation link: https://prezi.com/view/2TbK62VtTgED1Iq50O3N/?referral_token=i0pknblnB3FN
+
 SplitChain is a **Web3-based expense splitting platform** built on **Algorand**, designed to enable trustless group expense management, pooled wallets, and transparent on-chain settlements.
 
 It combines:
